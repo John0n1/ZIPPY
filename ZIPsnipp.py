@@ -10,6 +10,12 @@ import argparse
 import shutil
 import getpass  # For secure password input
 from threading import Thread
+import json  # For saving/loading configurations
+import readline  # For auto-completion
+from dotenv import load_dotenv  # For environment variables
+
+# Load environment variables from .env file if present
+load_dotenv()
 
 # --- Global Variables and Constants ---
 SCRIPT_NAME = "ZIPsnipp"
@@ -23,6 +29,7 @@ SUPPORTED_ARCHIVE_TYPES = {
 }
 LOADING_CHARS = ["/", "-", "\\", "|"]
 PASSWORD_DICT_DEFAULT = "password_dictionary.txt" # Default dictionary for password cracking
+CONFIG_FILE = "zippsnipp_config.json"  # Configuration file for saving/loading settings
 
 # --- Helper Functions ---
 
@@ -69,6 +76,8 @@ def display_help_text():
     print("  --repair-mode <mode>  Repair mode for ZIP archives: 'remove_corrupted' (default), 'scan_only'")
     print("  --verbose             Enable verbose output")
     print("  --no-animation        Disable loading animation")
+    print("  --save-config <file>  Save current settings to a configuration file")
+    print("  --load-config <file>  Load settings from a configuration file")
 
     print("\nExamples:")
     print(f"  {SCRIPT_NAME} extract myarchive.zip")
@@ -149,10 +158,38 @@ def get_password_interactive(prompt="Enter password: "):
     """Gets password securely from user input."""
     return getpass.getpass(prompt)
 
+def save_config(config, config_file=CONFIG_FILE):
+    """Saves the current configuration to a file."""
+    with open(config_file, 'w') as f:
+        json.dump(config, f, indent=4)
+    print(f"Configuration saved to {config_file}")
+
+def load_config(config_file=CONFIG_FILE):
+    """Loads configuration from a file."""
+    if not os.path.exists(config_file):
+        handle_errors(f"Configuration file not found: {config_file}")
+    with open(config_file, 'r') as f:
+        config = json.load(f)
+    print(f"Configuration loaded from {config_file}")
+    return config
+
+def setup_auto_completion(commands):
+    """Sets up auto-completion for commands and options."""
+    def completer(text, state):
+        options = [cmd for cmd in commands if cmd.startswith(text)]
+        if state < len(options):
+            return options[state]
+        else:
+            return None
+    readline.set_completer(completer)
+    readline.parse_and_bind("tab: complete")
+
 # --- Archive Operations Functions ---
 
 def extract_archive(archive_path, output_path=".", password=None, verbose=False, disable_animation=False):
     """Extracts the contents of an archive."""
+    if not output_path:
+        output_path = input("Output directory not provided. Please enter the output directory: ")
     archive_type = get_archive_type(archive_path)
     if not archive_type:
         handle_errors(f"Unsupported archive type for: {archive_path}")
@@ -193,6 +230,8 @@ def extract_archive(archive_path, output_path=".", password=None, verbose=False,
 
 def create_archive(archive_path, files_to_add, archive_type=None, password=None, verbose=False, disable_animation=False):
     """Creates a new archive."""
+    if not files_to_add:
+        files_to_add = input("Files to add not provided. Please enter the files to add (comma-separated): ")
     _create_archive_internal(archive_path, files_to_add, archive_type, password, verbose, disable_animation) # internal function reuse
 
 def lock_archive(archive_path, files_to_add=None, archive_type="zip", password=None, verbose=False, disable_animation=False):
@@ -202,6 +241,9 @@ def lock_archive(archive_path, files_to_add=None, archive_type="zip", password=N
 
     if not password:
         password = get_password_interactive() # Get password securely if not provided
+
+    if not files_to_add:
+        files_to_add = input("Files to add not provided. Please enter the files to add (comma-separated): ")
 
     if files_to_add:
         _create_archive_internal(archive_path, files_to_add, archive_type, password, verbose, disable_animation) # Create new locked archive
@@ -574,6 +616,8 @@ def main():
     parser.add_argument('--repair-mode', dest='repair_mode', default='remove_corrupted', choices=['remove_corrupted', 'scan_only'], help='Repair mode for ZIP archives (default: remove_corrupted)')
     parser.add_argument('--verbose', action='store_true', help='Enable verbose output for debugging')
     parser.add_argument('--no-animation', action='store_true', help='Disable loading animation')
+    parser.add_argument('--save-config', dest='save_config_file', help='Save current settings to a configuration file')
+    parser.add_argument('--load-config', dest='load_config_file', help='Load settings from a configuration file')
 
     # Command specific options - using argument groups for better help organization
     extract_group = parser.add_argument_group('extract command options')
@@ -592,6 +636,17 @@ def main():
     # --repair-mode is already a general option, used by repair
 
     args = parser.parse_args()
+
+    if args.save_config_file:
+        config = vars(args)
+        save_config(config, args.save_config_file)
+        return
+
+    if args.load_config_file:
+        config = load_config(args.load_config_file)
+        for key, value in config.items():
+            if hasattr(args, key):
+                setattr(args, key, value)
 
     if args.command == 'help':
         display_help_text()
@@ -621,4 +676,6 @@ def main():
             print("Invalid command. See 'ZIPsnipp help'") # Should not reach here due to argparse choices
 
 if __name__ == "__main__":
+    commands = ['extract', 'create', 'list', 'test', 'unlock', 'lock', 'repair', 'help', 'version']
+    setup_auto_completion(commands)
     main()

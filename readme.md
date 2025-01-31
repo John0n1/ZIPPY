@@ -24,6 +24,10 @@ ZIPsnipp is a command-line utility written in Python designed to be your compreh
 * **User-Friendly CLI**: Clean and intuitive command-line interface with options and help messages
 * **Loading Animation**: Provides visual feedback during operations (can be disabled)
 * **Verbose Output**: Option for detailed output for debugging and advanced users
+* **Interactive Prompts**: Prompts for missing arguments such as output directory and files to add
+* **Configuration Management**: Save and load configurations for common operations
+* **Environment Variables**: Support for environment variables to set default values for common options
+* **Auto-Completion**: Auto-completion for commands and options
 
 ## Supported Archive Types
 
@@ -108,6 +112,57 @@ Run ZIPsnipp from your terminal using the following command structure:
 | `--repair-mode <mode>` | | Repair mode for ZIP archives | `repair` |
 | `--verbose` | | Enable verbose output | All |
 | `--no-animation` | | Disable loading animation | All |
+| `--save-config <file>` | | Save current settings to a configuration file | All |
+| `--load-config <file>` | | Load settings from a configuration file | All |
+
+## Quick Start Guide
+
+1. **Extracting an Archive**:
+    ```bash
+    ./ZIPsnipp.py extract myarchive.zip
+    ```
+
+2. **Creating a New Archive**:
+    ```bash
+    ./ZIPsnipp.py create new_archive.zip -f file1.txt,directory1,image.jpg
+    ```
+
+3. **Creating a Password-Protected Archive**:
+    ```bash
+    ./ZIPsnipp.py lock secure_archive.zip -f important_documents,photos -p MySecretPassword
+    ```
+
+4. **Unlocking a Password-Protected Archive**:
+    ```bash
+    ./ZIPsnipp.py unlock protected.zip -d passwords.txt
+    ```
+
+5. **Repairing a Corrupted Archive**:
+    ```bash
+    ./ZIPsnipp.py repair corrupted.zip --repair-mode remove_corrupted
+    ```
+
+## Common Errors and Troubleshooting
+
+1. **Error: Archive file not found**:
+    * Ensure the archive file path is correct and the file exists.
+    * Use absolute paths if relative paths are causing issues.
+
+2. **Error: Unsupported archive type**:
+    * Check if the archive type is supported by ZIPsnipp.
+    * Use the `--type` option to specify the archive type if the extension is ambiguous.
+
+3. **Error: Incorrect password for ZIP archive**:
+    * Verify the password provided is correct.
+    * Use a dictionary file with the `unlock` command to attempt password recovery.
+
+4. **Error: No files specified to add to the archive**:
+    * Provide a comma-separated list of files and directories to add using the `--files` option.
+    * Ensure the paths are correct and the files/directories exist.
+
+5. **Error: Extraction failed**:
+    * Check if the archive is corrupted or password-protected.
+    * Use the `repair` command to attempt to fix corrupted archives.
 
 ## Notes and Limitations
 
@@ -120,4 +175,3 @@ Run ZIPsnipp from your terminal using the following command structure:
 ## License
 
 [MIT License]
-
