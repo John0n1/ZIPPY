@@ -1,12 +1,6 @@
-# ZIPsnipp
-```
-▗▄▄▄▄▖▗▄▄▄▖▗▄▄▖  ▗▄▄▖▗▖  ▗▖▗▄▄▄▖▗▄▄▖ ▗▄▄▖ 
-   ▗▞▘  █  ▐▌ ▐▌▐▌   ▐▛▚▖▐▌  █  ▐▌ ▐▌▐▌ ▐▌
- ▗▞▘    █  ▐▛▀▘  ▝▀▚▖▐▌ ▝▜▌  █  ▐▛▀▘ ▐▛▀▘ 
-▐▙▄▄▄▖▗▄█▄▖▐▌   ▗▄▄▞▘▐▌  ▐▌▗▄█▄▖▐▌   ▐▌   
-```
+# Zippy
 
-ZIPsnipp is a command-line utility written in Python designed for handling various archive file formats. It aims to provide a user-friendly interface for common archive operations, including extraction, creation, listing, testing, password management, and even experimental repair and salvage capabilities.
+Zippy is a command-line utility written in Python designed for handling various archive file formats. It aims to provide a user-friendly interface for common archive operations, including extraction, creation, listing, testing, password management, and even experimental repair and salvage capabilities.
 
 ## Features
 
@@ -20,7 +14,7 @@ ZIPsnipp is a command-line utility written in Python designed for handling vario
   * **ZIP Repair Modes**:
     * `remove_corrupted` (default): Attempts to remove corrupted files from ZIP archives
     * `scan_only`: Only scans and reports corrupted files in ZIP archives without repair actions
-  * **Salvage Extraction**: Even if repair fails, ZIPsnipp attempts to extract any salvageable content from corrupted archives
+  * **Salvage Extraction**: Even if repair fails, Zippy attempts to extract any salvageable content from corrupted archives
 * **User-Friendly CLI**: Clean and intuitive command-line interface with options and help messages
 * **Loading Animation**: Provides visual feedback during operations (can be disabled)
 * **Verbose Output**: Option for detailed output for debugging and advanced users
@@ -39,19 +33,19 @@ ZIPsnipp is a command-line utility written in Python designed for handling vario
 ## Installation
 
 1. **Prerequisites**: Ensure you have Python 3.x installed on your system
-2. **Download ZIPsnipp**: Download the `ZIPsnipp.py` script from this repository
+2. **Download Zippy**: Download the `Zippy.py` script from this repository
 3. **Make Executable (Linux/macOS)**:
     ```bash
-    chmod +x ZIPsnipp.py
+    chmod +x Zippy.py
     ```
-4. **Run from anywhere (Optional - Linux/macOS)**: Place `ZIPsnipp.py` in a directory in your system's `PATH` (e.g., `/usr/local/bin/`) to run it directly as `ZIPsnipp` from any terminal location
+4. **Run from anywhere (Optional - Linux/macOS)**: Place `Zippy.py` in a directory in your system's `PATH` (e.g., `/usr/local/bin/`) to run it directly as `Zippy` from any terminal location
 
 ## Usage
 
-Run ZIPsnipp from your terminal using the following command structure:
+Run Zippy from your terminal using the following command structure:
 
 ```bash
-./ZIPsnipp.py <command> [archive_file] [options]
+./Zippy.py <command> [archive_file] [options]
 ```
 
 ### Available Commands
@@ -70,34 +64,34 @@ Run ZIPsnipp from your terminal using the following command structure:
 
 ```bash
 # Extract a ZIP archive
-./ZIPsnipp.py extract myarchive.zip
+./Zippy.py extract myarchive.zip
 
 # Extract to specific directory
-./ZIPsnipp.py extract myarchive.tar.gz -o extracted_files
+./Zippy.py extract myarchive.tar.gz -o extracted_files
 
 # Create ZIP archive
-./ZIPsnipp.py create new_archive.zip -f file1.txt,directory1,image.jpg
+./Zippy.py create new_archive.zip -f file1.txt,directory1,image.jpg
 
 # Create password-protected ZIP
-./ZIPsnipp.py lock secure_archive.zip -f important_documents,photos -p MySecretPassword
+./Zippy.py lock secure_archive.zip -f important_documents,photos -p MySecretPassword
 
 # Unlock password-protected ZIP
-./ZIPsnipp.py unlock protected.zip -d passwords.txt
+./Zippy.py unlock protected.zip -d passwords.txt
 
 # Repair corrupted ZIP
-./ZIPsnipp.py repair corrupted.zip --repair-mode remove_corrupted
+./Zippy.py repair corrupted.zip --repair-mode remove_corrupted
 
 # List contents
-./ZIPsnipp.py list myarchive.tar
+./Zippy.py list myarchive.tar
 
 # Test integrity
-./ZIPsnipp.py test archive_to_test.zip
+./Zippy.py test archive_to_test.zip
 
 # Show help
-./ZIPsnipp.py help
+./Zippy.py help
 
 # Show version
-./ZIPsnipp.py version
+./Zippy.py version
 ```
 
 ### Options
@@ -119,27 +113,27 @@ Run ZIPsnipp from your terminal using the following command structure:
 
 1. **Extracting an Archive**:
     ```bash
-    ./ZIPsnipp.py extract myarchive.zip
+    ./Zippy.py extract myarchive.zip
     ```
 
 2. **Creating a New Archive**:
     ```bash
-    ./ZIPsnipp.py create new_archive.zip -f file1.txt,directory1,image.jpg
+    ./Zippy.py create new_archive.zip -f file1.txt,directory1,image.jpg
     ```
 
 3. **Creating a Password-Protected Archive**:
     ```bash
-    ./ZIPsnipp.py lock secure_archive.zip -f important_documents,photos -p MySecretPassword
+    ./Zippy.py lock secure_archive.zip -f important_documents,photos -p MySecretPassword
     ```
 
 4. **Unlocking a Password-Protected Archive**:
     ```bash
-    ./ZIPsnipp.py unlock protected.zip -d passwords.txt
+    ./Zippy.py unlock protected.zip -d passwords.txt
     ```
 
 5. **Repairing a Corrupted Archive**:
     ```bash
-    ./ZIPsnipp.py repair corrupted.zip --repair-mode remove_corrupted
+    ./Zippy.py repair corrupted.zip --repair-mode remove_corrupted
     ```
 
 ## Common Errors and Troubleshooting
@@ -149,7 +143,7 @@ Run ZIPsnipp from your terminal using the following command structure:
     * Use absolute paths if relative paths are causing issues.
 
 2. **Error: Unsupported archive type**:
-    * Check if the archive type is supported by ZIPsnipp.
+    * Check if the archive type is supported by Zippy.
     * Use the `--type` option to specify the archive type if the extension is ambiguous.
 
 3. **Error: Incorrect password for ZIP archive**:
