@@ -1,4 +1,4 @@
-# ZIPsnipp - Your Swiss Army Knife for Archive Files
+# ZIPsnipp
 ```
 ▗▄▄▄▄▖▗▄▄▄▖▗▄▄▖  ▗▄▄▖▗▖  ▗▖▗▄▄▄▖▗▄▄▖ ▗▄▄▖ 
    ▗▞▘  █  ▐▌ ▐▌▐▌   ▐▛▚▖▐▌  █  ▐▌ ▐▌▐▌ ▐▌
@@ -6,7 +6,7 @@
 ▐▙▄▄▄▖▗▄█▄▖▐▌   ▗▄▄▞▘▐▌  ▐▌▗▄█▄▖▐▌   ▐▌   
 ```
 
-ZIPsnipp is a command-line utility written in Python designed to be your comprehensive toolkit for handling various archive file formats. It aims to provide a user-friendly and powerful interface for common archive operations, including extraction, creation, listing, testing, password management, and even experimental repair and salvage capabilities.
+ZIPsnipp is a command-line utility written in Python designed for handling various archive file formats. It aims to provide a user-friendly interface for common archive operations, including extraction, creation, listing, testing, password management, and even experimental repair and salvage capabilities.
 
 ## Features
 
