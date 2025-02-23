@@ -168,4 +168,4 @@ Run Zippy from your terminal using the following command structure:
 
 ## License
 
-[MIT License]
+[MIT License](license)
