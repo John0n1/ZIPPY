@@ -18,7 +18,7 @@ from dotenv import load_dotenv  # For environment variables
 load_dotenv()
 
 # --- Global Variables and Constants ---
-SCRIPT_NAME = "ZIPsnipp"
+SCRIPT_NAME = "ZIPPY"
 VERSION = "0.3.0"  # Version updated for new features!
 SUPPORTED_ARCHIVE_TYPES = {
     ".zip": "zip",
@@ -28,27 +28,11 @@ SUPPORTED_ARCHIVE_TYPES = {
     ".gz": "gzip" # Basic gzip extraction
 }
 LOADING_CHARS = ["/", "-", "\\", "|"]
-PASSWORD_DICT_DEFAULT = "password_dictionary.txt" # Default dictionary for password cracking
-CONFIG_FILE = "zippsnipp_config.json"  # Configuration file for saving/loading settings
+PASSWORD_DICT_DEFAULT = "password_list.txt" # Default dictionary for password cracking
+CONFIG_FILE = "ZIPPY_config.json"  # Configuration file for saving/loading settings
 
 # --- Helper Functions ---
 
-def display_banner():
-    """Displays a cool banner for ZIPsnipp."""
-    banner = r"""
-
-▗▄▄▄▄▖▗▄▄▄▖▗▄▄▖  ▗▄▄▖▗▖  ▗▖▗▄▄▄▖▗▄▄▖ ▗▄▄▖ 
-   ▗▞▘  █  ▐▌ ▐▌▐▌   ▐▛▚▖▐▌  █  ▐▌ ▐▌▐▌ ▐▌
- ▗▞▘    █  ▐▛▀▘  ▝▀▚▖▐▌ ▝▜▌  █  ▐▛▀▘ ▐▛▀▘ 
-▐▙▄▄▄▖▗▄█▄▖▐▌   ▗▄▄▞▘▐▌  ▐▌▗▄█▄▖▐▌   ▐▌   
-                                          v{0}
-                                          
-                                          
-                                                                                       
-    """.format(VERSION)
-    print(banner)
-    print("Your Swiss Army Knife for Archive Files - Enhanced & Salvage Edition!") # Updated banner
-    print("-" * 50)
 
 def display_help_text():
     """Displays detailed help and usage instructions."""
