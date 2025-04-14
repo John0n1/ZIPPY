@@ -15,12 +15,12 @@ ZIPPY is a robust, production-ready command-line archive utility toolkit that pr
 - Save and load configuration settings via JSON files.
 - Command-line auto-completion using Python’s readline module.
 
-## Requirements
+### Requirements
 
 - Python 3.12+
 - [python-dotenv](https://pypi.org/project/python-dotenv/)
 
-# Install dependencies using:
+### Install dependencies using:
 
 ```bash
 pip install python-dotenv
