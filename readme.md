@@ -20,70 +20,72 @@ ZIPPY is a robust, production-ready command-line archive utility toolkit that pr
 - Python 3.12+
 - [python-dotenv](https://pypi.org/project/python-dotenv/)
 
-Install dependencies using:
+# Install dependencies using:
 
 ```bash
 pip install python-dotenv
-
-Installation
+```
+## Installation
 
 Clone the repository and navigate to the project directory:
 
+```bash
 git clone https://github.com/John0n1/ZIPPY.git
 cd ZIPPY
+```
 
 ## Usage
 
 ZIPPY is operated through the command line. Below are some examples:
 
 ### Extract an Archive
-
+```python
 python zippy.py extract myarchive.zip -o extracted_files
-
+```
 ### Create a New Archive
-
+```python
 python zippy.py create new_archive.zip -f file1.txt,dir1,file2.jpg
-
+```
 ### List Archive Contents
-
+```python
 python zippy.py list myarchive.tar.gz
-
+```
 ### Test Archive Integrity
-
+```python
 python zippy.py test myarchive.zip
-
+```
 ### Unlock a Password-Protected Archive
-
+```python
 python zippy.py unlock protected.zip -d passwords.txt
-
+```
 ### Create a Password-Protected Archive
-
+```python
 python zippy.py lock secure_archive.zip -f documents,images -p SecurePass
-
+```
 ### Repair a Corrupted Archive (Experimental)
-
+```python
 python zippy.py repair corrupted.zip --repair-mode remove_corrupted
-
+```
 ### Show Help
-
+```python
 python zippy.py help
-
+```
 ### Display Version
-
+```python
 python zippy.py version
-
+```
 ## Configuration
 
 You can save and load configuration settings using JSON files.
 
 ### Save Configuration:
-
+```python
 python zippy.py <command> <archive_file> [options] --save-config your_config.json
-
+```
 ### Load Configuration:
-
+```python
 python zippy.py <command> <archive_file> [options] --load-config your_config.json
-
+```
 
 # Supported Archive Formats
 
