@@ -1,171 +1,116 @@
-# Zippy
+# John0n1/ZIPPY
 
-Zippy is a command-line utility written in Python designed for handling various archive file formats. It aims to provide a user-friendly interface for common archive operations, including extraction, creation, listing, testing, password management, and even experimental repair and salvage capabilities.
+ZIPPY is a robust, production-ready command-line archive utility toolkit that provides extraction, archive creation, listing, integrity testing, password unlocking, and experimental archive repair functionalities. It supports multiple archive formats such as ZIP, TAR, TAR.GZ, and GZIP.
 
 ## Features
 
-* **Extract Archives**: Easily extract the contents of `.zip`, `.tar`, `.tar.gz`, `.tgz`, and `.gz` archives
-* **Create Archives**: Generate new `.zip`, `.tar`, `.tar.gz`, and `.gz` archives from files and directories
-* **List Archive Contents**: Quickly view the files and directories within an archive
-* **Test Archive Integrity**: Check for errors and corruption in your archive files
-* **Unlock Password-Protected ZIPs**: Attempt to crack password-protected ZIP archives using dictionary attacks
-* **Lock Archives (ZIP)**: Create password-protected `.zip` archives and add files during the locking process
-* **Experimental Archive Repair**: Includes experimental features to attempt repair of corrupted `.zip` and `.tar` archives, and basic salvage for `.gzip`
-  * **ZIP Repair Modes**:
-    * `remove_corrupted` (default): Attempts to remove corrupted files from ZIP archives
-    * `scan_only`: Only scans and reports corrupted files in ZIP archives without repair actions
-  * **Salvage Extraction**: Even if repair fails, Zippy attempts to extract any salvageable content from corrupted archives
-* **User-Friendly CLI**: Clean and intuitive command-line interface with options and help messages
-* **Loading Animation**: Provides visual feedback during operations (can be disabled)
-* **Verbose Output**: Option for detailed output for debugging and advanced users
-* **Interactive Prompts**: Prompts for missing arguments such as output directory and files to add
-* **Configuration Management**: Save and load configurations for common operations
-* **Environment Variables**: Support for environment variables to set default values for common options
-* **Auto-Completion**: Auto-completion for commands and options
+- Extract archives in various formats.
+- Create new archives and add multiple files/directories.
+- List contents of an archive.
+- Test archive integrity.
+- Unlock password-protected ZIP archives using a provided password or a dictionary attack.
+- Create password-protected (locked) ZIP archives.
+- Experimental archive repair with salvage extraction for corrupted archives.
+- Animated loading indicator with an option to disable it.
+- Save and load configuration settings via JSON files.
+- Command-line auto-completion using Python’s readline module.
 
-## Supported Archive Types
+## Requirements
 
-* `.zip`
-* `.tar`
-* `.tar.gz` (`.tgz`)
-* `.gz` (gzip compressed single files)
+- Python 3.12+
+- [python-dotenv](https://pypi.org/project/python-dotenv/)
 
-## Installation
+Install dependencies using:
 
-1. **Prerequisites**: Ensure you have Python 3.x installed on your system
-2. **Download Zippy**: Download the `Zippy.py` script from this repository
-3. **Make Executable (Linux/macOS)**:
-    ```bash
-    chmod +x Zippy.py
-    ```
-4. **Run from anywhere (Optional - Linux/macOS)**: Place `Zippy.py` in a directory in your system's `PATH` (e.g., `/usr/local/bin/`) to run it directly as `Zippy` from any terminal location
+```bash
+pip install python-dotenv
+
+Installation
+
+Clone the repository and navigate to the project directory:
+
+git clone https://github.com/John0n1/ZIPPY.git
+cd ZIPPY
 
 ## Usage
 
-Run Zippy from your terminal using the following command structure:
+ZIPPY is operated through the command line. Below are some examples:
 
-```bash
-./Zippy.py <command> [archive_file] [options]
-```
+### Extract an Archive
 
-### Available Commands
+python zippy.py extract myarchive.zip -o extracted_files
 
-* `extract`: Extract archive contents
-* `create`: Create a new archive
-* `list`: List contents of an archive
-* `test`: Test archive integrity
-* `unlock`: Attempt to unlock a password-protected archive
-* `lock`: Create a password-protected archive (and add files)
-* `repair`: [Experimental] Attempt to repair a corrupted archive
-* `help`: Display help message
-* `version`: Show script version
+### Create a New Archive
 
-### Examples
+python zippy.py create new_archive.zip -f file1.txt,dir1,file2.jpg
 
-```bash
-# Extract a ZIP archive
-./Zippy.py extract myarchive.zip
+### List Archive Contents
 
-# Extract to specific directory
-./Zippy.py extract myarchive.tar.gz -o extracted_files
+python zippy.py list myarchive.tar.gz
 
-# Create ZIP archive
-./Zippy.py create new_archive.zip -f file1.txt,directory1,image.jpg
+### Test Archive Integrity
 
-# Create password-protected ZIP
-./Zippy.py lock secure_archive.zip -f important_documents,photos -p MySecretPassword
+python zippy.py test myarchive.zip
 
-# Unlock password-protected ZIP
-./Zippy.py unlock protected.zip -d passwords.txt
+### Unlock a Password-Protected Archive
 
-# Repair corrupted ZIP
-./Zippy.py repair corrupted.zip --repair-mode remove_corrupted
+python zippy.py unlock protected.zip -d passwords.txt
 
-# List contents
-./Zippy.py list myarchive.tar
+### Create a Password-Protected Archive
 
-# Test integrity
-./Zippy.py test archive_to_test.zip
+python zippy.py lock secure_archive.zip -f documents,images -p SecurePass
 
-# Show help
-./Zippy.py help
+### Repair a Corrupted Archive (Experimental)
 
-# Show version
-./Zippy.py version
-```
+python zippy.py repair corrupted.zip --repair-mode remove_corrupted
 
-### Options
+### Show Help
 
-| Option | Short | Description | Commands |
-|--------|-------|-------------|----------|
-| `--output <path>` | `-o` | Output directory for extraction | `extract` |
-| `--password <password>` | `-p` | Password for operations | `extract`, `lock`, `unlock` |
-| `--dictionary <file>` | `-d` | Dictionary file for password cracking | `unlock` |
-| `--files <file1,file2,...>` | `-f` | Files to add | `create`, `lock` |
-| `--type <type>` | | Force archive type | `create`, `lock` |
-| `--repair-mode <mode>` | | Repair mode for ZIP archives | `repair` |
-| `--verbose` | | Enable verbose output | All |
-| `--no-animation` | | Disable loading animation | All |
-| `--save-config <file>` | | Save current settings to a configuration file | All |
-| `--load-config <file>` | | Load settings from a configuration file | All |
+python zippy.py help
 
-## Quick Start Guide
+### Display Version
 
-1. **Extracting an Archive**:
-    ```bash
-    ./Zippy.py extract myarchive.zip
-    ```
+python zippy.py version
 
-2. **Creating a New Archive**:
-    ```bash
-    ./Zippy.py create new_archive.zip -f file1.txt,directory1,image.jpg
-    ```
+## Configuration
 
-3. **Creating a Password-Protected Archive**:
-    ```bash
-    ./Zippy.py lock secure_archive.zip -f important_documents,photos -p MySecretPassword
-    ```
+You can save and load configuration settings using JSON files.
 
-4. **Unlocking a Password-Protected Archive**:
-    ```bash
-    ./Zippy.py unlock protected.zip -d passwords.txt
-    ```
+### Save Configuration:
 
-5. **Repairing a Corrupted Archive**:
-    ```bash
-    ./Zippy.py repair corrupted.zip --repair-mode remove_corrupted
-    ```
+python zippy.py <command> <archive_file> [options] --save-config your_config.json
 
-## Common Errors and Troubleshooting
+### Load Configuration:
 
-1. **Error: Archive file not found**:
-    * Ensure the archive file path is correct and the file exists.
-    * Use absolute paths if relative paths are causing issues.
+python zippy.py <command> <archive_file> [options] --load-config your_config.json
 
-2. **Error: Unsupported archive type**:
-    * Check if the archive type is supported by Zippy.
-    * Use the `--type` option to specify the archive type if the extension is ambiguous.
 
-3. **Error: Incorrect password for ZIP archive**:
-    * Verify the password provided is correct.
-    * Use a dictionary file with the `unlock` command to attempt password recovery.
+# Supported Archive Formats
 
-4. **Error: No files specified to add to the archive**:
-    * Provide a comma-separated list of files and directories to add using the `--files` option.
-    * Ensure the paths are correct and the files/directories exist.
+ZIP
 
-5. **Error: Extraction failed**:
-    * Check if the archive is corrupted or password-protected.
-    * Use the `repair` command to attempt to fix corrupted archives.
+TAR
 
-## Notes and Limitations
+TAR.GZ / TGZ
 
-* Password dictionary required for unlock command
-* Password recovery uses brute-force/dictionary attack
-* Archive repair is experimental
-* File paths in create/lock commands need comma separation
-* Proper permissions required for operations
+GZIP (single file only)
+
+
+# Auto-Completion
+
+ZIPPY sets up basic auto-completion for commands using Python’s readline module. This feature is automatically enabled when running the script.
 
 ## License
 
-[MIT License](license)
+This project is licensed under the MIT License. See the LICENSE file for details.
+
+## Contributing
+
+Contributions are welcome! Please fork the repository and submit a pull request with any improvements or bug fixes.
+
+## Disclaimer
+
+ZIPPY is provided "as is" without warranty of any kind. Use at your own risk. Always keep backups of important archives.
+
+
+
