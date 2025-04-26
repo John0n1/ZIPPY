@@ -1,0 +1,11 @@
+python-dotenv
+argparse
+getpass
+json
+readline
+shutil
+time
+traceback
+zipfile
+tarfile
+gzip

@@ -23,7 +23,7 @@ ZIPPY is a robust, production-ready command-line archive utility toolkit that pr
 ### Install dependencies using:
 
 ```bash
-pip install python-dotenv
+pip install -r requirements.txt
 ```
 ## Installation
 
