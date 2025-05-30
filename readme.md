@@ -1,6 +1,6 @@
-# John0n1/ZIPPY
+# ZIPPY
 
-ZIPPY is a robust, production-ready command-line archive utility toolkit that provides extraction, archive creation, listing, integrity testing, password unlocking, and experimental archive repair functionalities. It supports multiple archive formats such as ZIP, TAR, TAR.GZ, and GZIP.
+ZIPPY is a robust command-line archive utility toolkit that provides extraction, archive creation, listing, integrity testing, password unlocking, and experimental archive repair functionalities. It supports multiple archive formats such as ZIP, TAR, TAR.GZ, and GZIP.
 
 ## Features
 
