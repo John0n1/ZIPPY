@@ -1,6 +1,7 @@
 import zipfile
 import tarfile
 import gzip
+import os
 
 from .utils import handle_errors, loading_animation, get_archive_type
 

@@ -1,11 +1,9 @@
 import os
 import sys
-import time
-import argparse
-import getpass
-import json
 import readline
+import argparse
 import logging
+import json
 from dotenv import load_dotenv
 from zippy.extract import extract_archive
 from zippy.create import create_archive
@@ -14,19 +12,15 @@ from zippy.test import test_archive_integrity
 from zippy.unlock import unlock_archive
 from zippy.lock import lock_archive
 from zippy.repair import repair_archive
+from zippy.utils import (
+    handle_errors, loading_animation, get_archive_type,
+    validate_path, get_password_interactive, SUPPORTED_ARCHIVE_TYPES
+)
 
 load_dotenv()
 
 SCRIPT_NAME = "ZIPPY"
 VERSION = "0.3.0"
-SUPPORTED_ARCHIVE_TYPES = {
-    ".zip": "zip",
-    ".tar": "tar",
-    ".tar.gz": "tar.gz",
-    ".tgz": "tar.gz",
-    ".gz": "gzip"
-}
-LOADING_CHARS = ["/", "-", "\\", "|"]
 PASSWORD_DICT_DEFAULT = "password_list.txt"
 CONFIG_FILE = "ZIPPY_config.json"
 
@@ -81,52 +75,6 @@ def display_help_text():
     print("  - For severely corrupted archives, consider using dedicated repair tools.")
     print("  - Even if repair fails, salvage extraction will be attempted.")
     print("-" * 50)
-
-def loading_animation(message="Processing...", duration=2, disable_animation=False):
-    if disable_animation:
-        print(f"{message} (Please wait...)")
-        time.sleep(duration)
-        return
-    start_time = time.time()
-    idx = 0
-    while time.time() - start_time < duration:
-        sys.stdout.write(f"\r{message} {LOADING_CHARS[idx % len(LOADING_CHARS)]}")
-        sys.stdout.flush()
-        time.sleep(0.1)
-        idx += 1
-    sys.stdout.write(f"\r{message} Done!   \n")
-
-def get_archive_type(archive_path, forced_type=None):
-    if forced_type:
-        if forced_type not in SUPPORTED_ARCHIVE_TYPES.values():
-            raise ValueError(f"Invalid archive type specified: {forced_type}. Supported types: {', '.join(SUPPORTED_ARCHIVE_TYPES.values())}")
-        return forced_type
-    _, ext = os.path.splitext(archive_path)
-    if ext.lower() in SUPPORTED_ARCHIVE_TYPES:
-        return SUPPORTED_ARCHIVE_TYPES[ext.lower()]
-    elif archive_path.lower().endswith(".tar.gz") or archive_path.lower().endswith(".tgz"):
-        return "tar.gz"
-    else:
-        return None
-
-def handle_errors(message, verbose=False, exit_code=1):
-    logging.error(message)
-    if verbose:
-        import traceback
-        traceback.print_exc()
-    sys.exit(exit_code)
-
-def validate_path(path, description="Path", must_exist=True, is_dir=False):
-    if not path:
-        handle_errors(f"{description} cannot be empty.")
-    if must_exist and not os.path.exists(path):
-        handle_errors(f"{description} not found: {path}")
-    if is_dir and not os.path.isdir(path):
-        handle_errors(f"{description} must be a directory: {path}")
-    return os.path.abspath(path)
-
-def get_password_interactive(prompt="Enter password: "):
-    return getpass.getpass(prompt)
 
 def save_config(config, config_file=CONFIG_FILE):
     with open(config_file, 'w') as f:
