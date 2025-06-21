@@ -67,7 +67,7 @@ def get_password_interactive(prompt="Enter password: "):
     return getpass.getpass(prompt)
 
 # Salvage functions referenced in repair.py but missing
-def _salvage_extract_on_repair_fail(archive_path, output_path=".", verbose=False):
+def _salvage_extract_on_repair_fail(archive_path, output_path=".", archive_type=None, verbose=False):
     """Attempt salvage extraction when repair fails."""
     try:
         print(f"Attempting salvage extraction for {archive_path}...")
@@ -84,6 +84,7 @@ def _salvage_extract_on_repair_fail(archive_path, output_path=".", verbose=False
 def _tar_salvage_extraction(archive_path, output_path=".", verbose=False):
     """Attempt salvage extraction for TAR archives."""
     import tarfile
+    extracted_count = 0
     try:
         print(f"Attempting TAR salvage extraction for {archive_path}...")
         with tarfile.open(archive_path, 'r:*', ignore_zeros=True) as tf:
@@ -91,16 +92,17 @@ def _tar_salvage_extraction(archive_path, output_path=".", verbose=False):
             for member in tf:
                 try:
                     tf.extract(member, output_path)
+                    extracted_count += 1
                 except Exception as e:
                     if verbose:
                         print(f"Failed to extract {member.name}: {e}")
                     continue
-        print("TAR salvage extraction completed.")
-        return True
+        print(f"TAR salvage extraction completed. Extracted {extracted_count} files.")
+        return extracted_count
     except Exception as e:
         if verbose:
             print(f"TAR salvage extraction failed: {e}")
-        return False
+        return 0
 
 # Functions imported by lock.py - use lazy imports to avoid circular dependencies
 def extract_archive(*args, **kwargs):
