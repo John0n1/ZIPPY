@@ -70,15 +70,15 @@ def get_password_interactive(prompt="Enter password: "):
 def _salvage_extract_on_repair_fail(archive_path, output_path=".", archive_type=None, verbose=False):
     """Attempt salvage extraction when repair fails."""
     try:
-        print(f"Attempting salvage extraction for {archive_path}...")
+        logging.info(f"Attempting salvage extraction for {archive_path}...")
         # Import here to avoid circular imports
         from .extract import extract_archive
         extract_archive(archive_path, output_path, verbose=verbose, disable_animation=True)
-        print("Salvage extraction completed successfully.")
+        logging.info("Salvage extraction completed successfully.")
         return True
     except Exception as e:
         if verbose:
-            print(f"Salvage extraction failed: {e}")
+            logging.info(f"Salvage extraction failed: {e}")
         return False
 
 def _tar_salvage_extraction(archive_path, output_path=".", verbose=False):
