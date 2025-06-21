@@ -86,7 +86,7 @@ def _tar_salvage_extraction(archive_path, output_path=".", verbose=False):
     import tarfile
     extracted_count = 0
     try:
-        print(f"Attempting TAR salvage extraction for {archive_path}...")
+        logging.info(f"Attempting TAR salvage extraction for {archive_path}...")
         with tarfile.open(archive_path, 'r:*', ignore_zeros=True) as tf:
             # Try to extract what we can
             for member in tf:
