@@ -19,6 +19,22 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+.pybuild/*
+demo/*
+# Packaging artifacts
+*.deb
+debian/debhelper-build-stamp
+debian/files
+debian/zippy/*
+*.build
+*.changes
+*.dsc
+debian/.debhelper/
+debian/build/
+debian/files
+debian/zippy.debhelper.log
+debian/zippy.substvars
+debian/tmp/
 
 # Virtual Environment
 venv/

@@ -1,0 +1,88 @@
+.TH ZIPPY 1 "October 2025" "zippy 1.0.0" "User Commands"
+.SH NAME
+zippy \- multi-format archive automation toolkit
+.SH SYNOPSIS
+.B zippy
+[B--extractR|B--createR|B--listR|B--testR|B--unlockR|B--lockR|B--repairR] [IARCHIVER] [IOPTIONSR]
+.SH DESCRIPTION
+.B Zippy
+is a colour-aware command line utility for creating, listing, testing,
+repairing, and unlocking archive files. It understands ZIP, multiple TAR
+variants, and single-file compression formats such as gzip, bzip2, xz, and
+lzma. The application provides animated feedback, structured logging, and
+password workflows powered by curated dictionaries. Optional integration with
+the IpatoolR framework extends extraction, listing, and testing to
+additional containers including RAR, 7z, Zstandard (and TAR.ZST), CAB, ISO,
+ARJ/LZH/ACE, SIT/SITX/HQX, CPIO, Debian/RPM/APK packages, XAR/PKG bundles, and
+AppImage payloads.
+.SH COMMAND FLAGS
+.TP
+.BR "--create ," " -c"
+Build a new archive from one or more files or directories.
+.TP
+.BR "--extract ," " -x"
+Unpack supported archives into the target directory.
+.TP
+.BR "--list ," " -l"
+Display the contents of an archive without extracting it.
+.TP
+.BR "--lock"
+Create or re-lock password-protected ZIP archives.
+.TP
+.BR "--unlock ," " -u"
+Attempt to recover a ZIP password using a supplied value or dictionary.
+.TP
+.BR "--test ," " -t"
+Check the integrity of an archive and report corruption.
+.TP
+.BR "--repair ," " -r"
+Perform best-effort recovery on damaged archives.
+.SH OPTIONS
+Most commands share common flags:
+.TP
+.B --output, -o
+Specify the destination directory for extracted data.
+.TP
+.B --files, -f
+Comma-separated list of files or directories to include when creating or locking archives.
+.TP
+.B --type
+Override archive format detection when creating archives.
+.TP
+.B --password, -p
+Provide a password for locking, unlocking, or extracting protected archives.
+.TP
+.B --dictionary, -d
+Path to a password wordlist used by the unlock command.
+.TP
+.B --save-config / --load-config
+Persist and restore command flags for repeat automation.
+.TP
+.B --repair-mode
+Choose between \fIremove_corrupted\fR (default) or \fIscan_only\fR when repairing ZIP archives.
+.TP
+.B --verbose
+Enable debug logging.
+.TP
+.B --no-animation
+Disable the spinner for non-interactive environments.
+.SH EXIT STATUS
+The
+.B zippy
+command exits with status 0 on success, and non-zero on failure.
+.SH EXAMPLES
+Create a password-protected ZIP archive:
+.PP
+.EX
+zippy --lock secure.zip -f reports -p "Tru5ted!"
+.EE
+Attempt to unlock an archive with the bundled dictionary:
+.PP
+.EX
+zippy --unlock secret.zip -d password_list.txt --verbose
+.EE
+.SH AUTHORS
+John Hauger Mitander <john@on1.no>
+.SH SEE ALSO
+.BR zip (1),
+.BR tar (1)

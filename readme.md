@@ -1,118 +1,107 @@
-# ZIPPY
+git clone https://github.com/John0n1/zippy.git
+<div align="center">
 
-ZIPPY is a robust command-line archive utility toolkit that provides extraction, archive creation, listing, integrity testing, password unlocking, and experimental archive repair functionalities. It supports multiple archive formats such as ZIP, TAR, TAR.GZ, and GZIP.
+# Zippy Toolkit
 
-## Features
+**Multi-format archive automation with colourised logging, password workflows, and repair tooling.**
 
-- Extract archives in various formats.
-- Create new archives and add multiple files/directories.
-- List contents of an archive.
-- Test archive integrity.
-- Unlock password-protected ZIP archives using a provided password or a dictionary attack.
-- Create password-protected (locked) ZIP archives.
-- Experimental archive repair with salvage extraction for corrupted archives.
-- Animated loading indicator with an option to disable it.
-- Save and load configuration settings via JSON files.
-- Command-line auto-completion using Python’s readline module.
+</div>
 
-### Requirements
+- **Broad format coverage** - ZIP family (including APK/JAR/WAR/IPA/EAR), TAR variants (`tar`, `tar.gz`, `tar.bz2`, `tar.xz`, `tar.lzma`) and single-file compressors (`gzip`, `bz2`, `xz`, `lzma`).
+- **Consistent UX** - colour-aware logging, animated progress indicators, and tab completion for every command.
+- **Security tooling** - create or re-lock encrypted ZIPs, run smart dictionary attacks with the bundled password list, and capture verbose traces when needed.
+- **Integrity & repair** - smoke-test archives, attempt salvage extractions, and perform best-effort recovery for TAR and single-file formats.
+- **Packaging ready** - modern `pyproject.toml`, Debian packaging assets, and best-practice metadata for distribution.
 
-- Python 3.12+
-- [python-dotenv](https://pypi.org/project/python-dotenv/)
-
-### Install dependencies using:
-
-```bash
-pip install -r requirements.txt
-```
 ## Installation
 
-Clone the repository and navigate to the project directory:
+### From PyPI (recommended)
+
+```bash
+python -m pip install py-zippy
+```
+
+### From source
 
 ```bash
 git clone https://github.com/John0n1/ZIPPY.git
 cd ZIPPY
+python -m pip install .
 ```
 
-## Usage
+### Debian package build
 
-ZIPPY is operated through the command line. Below are some examples:
-
-### Extract an Archive
-```python
-python zippy.py extract myarchive.zip -o extracted_files
-```
-### Create a New Archive
-```python
-python zippy.py create new_archive.zip -f file1.txt,dir1,file2.jpg
-```
-### List Archive Contents
-```python
-python zippy.py list myarchive.tar.gz
-```
-### Test Archive Integrity
-```python
-python zippy.py test myarchive.zip
-```
-### Unlock a Password-Protected Archive
-```python
-python zippy.py unlock protected.zip -d passwords.txt
-```
-### Create a Password-Protected Archive
-```python
-python zippy.py lock secure_archive.zip -f documents,images -p SecurePass
-```
-### Repair a Corrupted Archive (Experimental)
-```python
-python zippy.py repair corrupted.zip --repair-mode remove_corrupted
-```
-### Show Help
-```python
-python zippy.py help
-```
-### Display Version
-```python
-python zippy.py version
-```
-## Configuration
-
-You can save and load configuration settings using JSON files.
-
-### Save Configuration:
-```python
-python zippy.py <command> <archive_file> [options] --save-config your_config.json
-```
-### Load Configuration:
-```python
-python zippy.py <command> <archive_file> [options] --load-config your_config.json
+```bash
+dpkg-buildpackage -us -uc
+sudo dpkg -i ../zippy_*_all.deb
 ```
 
-# Supported Archive Formats
+## Quick start
 
-ZIP
+```bash
+# Extract an archive
+zippy extract backups/site.tar.xz -o ./site
 
-TAR
+# Create a password-protected ZIP from multiple paths
+zippy lock secure.zip -f docs,images -p "Tru5ted!"
 
-TAR.GZ / TGZ
+# List TAR.BZ2 contents
+zippy list datasets.tar.bz2
 
-GZIP (single file only)
+# Attempt unlocking with the bundled wordlist
+zippy unlock encrypted.zip -d password_list.txt --verbose
 
+# Run salvage repair on a damaged tarball
+zippy repair broken.tar.gz --repair-mode remove_corrupted
+```
 
-# Auto-Completion
+Run `zippy help` for the full command reference or `zippy --version` to confirm the installed release.
 
-ZIPPY sets up basic auto-completion for commands using Python’s readline module. This feature is automatically enabled when running the script.
+## Supported archive formats
+
+| Family | Types |
+| ------ | ----- |
+| ZIP family | `zip`, `jar`, `war`, `ear`, `apk`, `ipa` (AES encryption supported via `pyzipper`) |
+| TAR family | `tar`, `tar.gz`, `tar.bz2`, `tar.xz`, `tar.lzma`, `.tgz`, `.tbz`, `.txz`, `.tlz` |
+| Single-file | `gzip` (`.gz`), `bz2` (`.bz2`), `xz` (`.xz`), `lzma` (`.lzma`) |
+| External (via `patool`) | `rar`, `7z`, `zst`, `tar.zst`, `tar.lz`, `lz`, `cab`, `iso`, `img`, `sit`, `sitx`, `hqx`, `arj`, `lzh`, `ace`, `z`, `Z`, `cpio`, `deb`, `rpm`, `pkg`, `xar`, `appimage` |
+
+External formats require the optional [`patool`](https://wummel.github.io/patool/) package and the corresponding backend binaries (e.g. `unrar`, `7z`, `cabextract`). Zippy detects missing tools and guides you through resolving them.
+
+## Configuration & automation
+
+- Use `--save-config <file>` to capture the current flag set (including passwords or dictionary paths if provided).
+- Rehydrate saved flags via `--load-config <file>` for repeatable batch jobs.
+- Disable animations with `--no-animation` for CI environments.
+
+## Logging & colours
+
+Logging defaults to concise `INFO` output. Add `--verbose` for `DEBUG` traces. Colour output automatically downgrades in non-interactive terminals, while animations fall back to plain log messages when disabled or redirected. Windows terminals are supported through `colorama`.
+
+## Password dictionary
+
+The bundled `password_list.txt` contains hundreds of common credentials, curated for demonstration purposes. The unlock command trims duplicates, ignores comments (`# ...`), and safely handles mixed encodings. Supply your own list with `--dictionary <file>` for larger attacks.
+
+## Development
+
+```bash
+python -m pip install -r requirements.txt
+python -m pip install -e .[dev]  # if you add optional tooling
+
+# Lint / type-check (examples)
+ruff check
+pyright
+```
+
+Pull requests are welcome—please open an issue describing the enhancement before submitting substantial changes.
 
 ## License
 
-This project is licensed under the MIT License. See the LICENSE file for details.
-
-## Contributing
-
-Contributions are welcome! Please fork the repository and submit a pull request with any improvements or bug fixes.
+Zippy is released under the MIT License. See `LICENSE` for the full text.
 
 ## Disclaimer
 
-ZIPPY is provided "as is" without warranty of any kind. Use at your own risk. Always keep backups of important archives.
+Zippy is provided "as is" without warranty of any kind. Use at your own risk and keep backups of critical data.
 
 
 

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Zippy Toolkit
+Comment=Multi-format archive automation toolkit
+Exec=sh -c "zippy --help; printf '\nPress Enter to close...'; read -r _"
+Terminal=true
+Icon=zippy
+Categories=Utility;Archiving;
+Keywords=archive;zip;tar;compression;backup;

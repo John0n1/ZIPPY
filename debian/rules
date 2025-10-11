@@ -1,0 +1,22 @@
+#!/usr/bin/make -f
+
+export PYBUILD_NAME = zippy
+export PYBUILD_SYSTEM = pyproject
+
+%:
+	dh $@ --buildsystem=pybuild
+
+override_dh_auto_install:
+	dh_auto_install
+	set -e; \
+	 pkgdir=debian/zippy/usr/lib; \
+	 verdir=$$(find $$pkgdir -maxdepth 1 -type d -name 'python3.*' | head -n 1); \
+	 if [ -n "$$verdir" ]; then \
+	   dest=$$pkgdir/python3/dist-packages; \
+	   mkdir -p "$$dest"; \
+	   if [ -d "$$verdir/dist-packages" ]; then \
+	     cp -a "$$verdir/dist-packages/." "$$dest/"; \
+	   fi; \
+	   rm -rf "$$verdir"; \
+	 fi; \
+	 find debian/zippy -type d -name '__pycache__' -exec rm -rf {} +

@@ -1,0 +1,6 @@
+#!/usr/bin/env python3
+# Wrapper ensures the CLI is discoverable even when console scripts are stripped.
+from zippy.cli import main
+
+if __name__ == "__main__":  # pragma: no cover
+    raise SystemExit(main())

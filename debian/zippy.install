@@ -1,0 +1,3 @@
+debian/zippy.desktop usr/share/applications/
+debian/icons/zippy.svg usr/share/icons/hicolor/scalable/apps/
+debian/bin/zippy usr/bin/
