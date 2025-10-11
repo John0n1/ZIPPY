@@ -1,19 +1,20 @@
 <div align="center">
 
-# Zippy
+## Zippy
 
 **Multi-purpose archive extraction, repair and brute-force toolkit.**
 
+![PyPI](https://img.shields.io/pypi/v/py-zippy?color=blue&logo=pypi&style=flat-square) ![Python](https://img.shields.io/pypi/pyversions/py-zippy?color=blue&logo=python&style=flat-square) ![License](https://img.shields.io/pypi/l/py-zippy?color=blue&logo=apache&style=flat-square)
+
+**Broad format coverage** - (`tar`, `tar.gz`, `tar.bz2`, `tar.xz`, `tar.lzma`), (`gzip`, `bz2`, `xz`, `lzma`), (`7z`, `rar`, `zstd`)
+
+**Consistent UX** - consistent logging, progress indicators, and tab completion for every command.
+
+**Security tooling** - create or re-lock encrypted ZIPs, run smart dictionary attacks with a password list
+
+**Integrity & repair** - repair, attempt salvage extractions, and perform best-effort recovery.
 </div>
 
-![PyPI](https://img.shields.io/pypi/v/zippy-toolkit?color=blue&logo=pypi&style=flat-square) ![Python](https://img.shields.io/pypi/pyversions/zippy-toolkit?color=blue&logo=python&style=flat-square) ![License](https://img.shields.io/pypi/l/zippy-toolkit?color=blue&logo=apache&style=flat-square) ![Build](https://img.shields.io/github/actions/workflow/status/John0n1/ZIPPY/ci.yml?branch=main&label=build&logo=github&style=flat-square) ![Coverage](https://img.shields.io/codecov/c/github/John0n1/ZIPPY/main?logo=codecov&style=flat-square)
-
-```bash
-
-- **Broad format coverage** - (`tar`, `tar.gz`, `tar.bz2`, `tar.xz`, `tar.lzma`), (`gzip`, `bz2`, `xz`, `lzma`), `7z`, `rar`, `zstd` and ZIP family (including APK/JAR/WAR/IPA/EAR).
-- **Consistent UX** - consistent logging, progress indicators, and tab completion for every command.
-- **Security tooling** - create or re-lock encrypted ZIPs, run smart dictionary attacks with the bundled password list, and capture verbose traces when needed.
-- **Integrity & repair** - repair, attempt salvage extractions, and perform best-effort recovery for TAR and single-file formats. It grabs whatever it can, even if files look broken or corrupted. This is achieved by scanning the archive for valid headers and footers, and extracting the data in between, then rebuilding the file structure using advanced data pointers and heuristics.
 
 ## Installation
 
