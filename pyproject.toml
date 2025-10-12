@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "py-zippy"
-version = "1.0.0"
+version = "1.0.1"
 description = "Archive Utility Toolkit supporting multi-format workflows, password recovery, and repair helpers."
 readme = "README.md"
 license = { file = "LICENSE" }
@@ -12,11 +12,15 @@ requires-python = ">=3.9"
 authors = [
     { name = "John Hauger Mitander", email = "john@on1.no" },
 ]
-keywords = ["archives", "zip", "tar", "cli", "toolkit"]
+maintainers = [
+    { name = "John Hauger Mitander", email = "john@on1.no" },
+]
+keywords = ["archives", "zip", "tar", "cli", "toolkit", "compression", "encryption", "password-recovery"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Environment :: Console",
     "Intended Audience :: System Administrators",
+    "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python",
@@ -25,6 +29,7 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Topic :: System :: Archiving",
     "Topic :: System :: Archiving :: Compression",
     "Topic :: Utilities",
@@ -36,10 +41,30 @@ dependencies = [
     "patool>=1.12",
 ]
 
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "black>=23.0",
+    "ruff>=0.1.0",
+]
+full = [
+    "py7zr>=0.20.0",
+    "rarfile>=4.0",
+]
+windows = [
+    "pyinstaller>=5.0",
+]
+macos = [
+    "py2app>=0.28",
+]
+
 [project.urls]
-Homepage = "https://github.com/John0n1/ZIPPY"
-Documentation = "https://github.com/John0n1/ZIPPY#readme"
-Issues = "https://github.com/John0n1/ZIPPY/issues"
+Homepage = "https://github.com/John0n1/zippy"
+Documentation = "https://github.com/John0n1/zippy#readme"
+Repository = "https://github.com/John0n1/zippy.git"
+Issues = "https://github.com/John0n1/zippy/issues"
+Changelog = "https://github.com/John0n1/zippy/releases"
 
 [project.scripts]
 zippy = "zippy.cli:main"
@@ -50,3 +75,6 @@ include-package-data = true
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["zippy", "zippy.*"]
+
+[tool.setuptools.package-data]
+zippy = ["*.txt", "*.md"]

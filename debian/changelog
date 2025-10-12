@@ -1,3 +1,9 @@
+zippy (1.0.1) unstable; urgency=medium
+
+  * Hotfix: fix breaking change in patool 1.12
+
+ -- John Hauger Mitander <john@on1.no>  Sat, 12 Oct 2025 12:00:00 +0000
+
 zippy (1.0.0) unstable; urgency=medium
 
   * Initial release of the modernised ZIPPY toolkit for Debian.

@@ -1,7 +1,7 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: zippy
 Upstream-Contact: John Hauger Mitander <john@on1.no>
-Source: https://github.com/John0n1/ZIPPY
+Source: https://github.com/John0n1/zippy
 
 Files: *
 Copyright: 2025 John Hauger Mitander

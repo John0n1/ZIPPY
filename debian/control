@@ -4,6 +4,11 @@ Section: utils
 Priority: optional
 Standards-Version: 4.7.0
 Rules-Requires-Root: no
+Vcs-Git: https://github.com/John0n1/zippy.git
+Homepage: https://github.com/John0n1/zippy
+Vcs-Browser: https://github.com/John0n1/zippy
+Testsuite: autopkgtest-pkg-python
+X-Python3-Version: >= 3.9
 Build-Depends:
  debhelper-compat (= 13),
  python3,
@@ -15,18 +20,21 @@ Build-Depends:
  python3-dotenv,
  python3-pyzipper,
  patool
-Homepage: https://github.com/John0n1/ZIPPY
-Vcs-Git: https://github.com/John0n1/ZIPPY.git
-Vcs-Browser: https://github.com/John0n1/ZIPPY
 
 Package: zippy
 Architecture: all
-Depends: ${python3:Depends}, ${misc:Depends}, python3, python3-colorama, python3-dotenv, python3-pyzipper, patool
+Depends: ${misc:Depends}, python3-colorama, python3-dotenv, python3-pyzipper, patool
+Recommends: p7zip-full, unrar, unzip, gzip, bzip2, xz-utils
+Suggests: zstd, lzip, cabextract, rpm2cpio
+Enhances: file-roller, ark
+Breaks: old-package-name (<< 1.0.0)
+Replaces: old-package-name (<< 1.0.0)
+Provides: archive-tool
+Multi-Arch: foreign
+Homepage: https://github.com/John0n1/zippy
 Description: Command-line archive utility toolkit with password workflows
  Command-line toolkit for creating, inspecting, testing, unlocking, and
  repairing archive files. Supports ZIP, TAR variants, and single-file
  compression formats with colourised logging, optional password recovery
  dictionaries, and experimental salvage utilities. Integrates with patool
  to extend extraction and validation to formats such as RAR, 7z, and CAB.
-
-
